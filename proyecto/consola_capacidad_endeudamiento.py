@@ -6,4 +6,4 @@ impuestos = float(input("Impuestos : "))
 gastos_mensuales = float(input("Gastos mensuales : "))
 porcentaje_endeudamiento = float(input("Porcentaje de endeudamiento permitido (en decimal) : "))
 
-print("La capacidad de endeudamiento es: ", round(cb.capacidad_de_eudeudamiento(salario_base, ingresos_extras, impuestos, gastos_mensuales, porcentaje_endeudamiento), 2))
+print("La capacidad de endeudamiento es: ", round(cb.calcular_capacidad_endeudamiento(salario_base, ingresos_extras, impuestos, gastos_mensuales, porcentaje_endeudamiento), 2))
