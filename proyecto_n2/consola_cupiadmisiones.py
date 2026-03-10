@@ -76,7 +76,13 @@ def ejecutar_filtrar_por_carrera(c1: dict, c2: dict, c3: dict, c4: dict) -> None
         "No se encontraron candidatos para la carrera buscada."
     """
     # TODO 9: Implemente la función tal y como se describe en la documentación.
-    pass
+    carrera = input("Ingrese la carrera a buscar: ")
+    resultado = ca.filtrar_por_carrera_aplicada(carrera, c1, c2, c3, c4)
+
+    if resultado != "Ninguno":
+        print(f"Candidatos que aplicaron a {carrera}: {resultado}")
+    else:
+        print("No se encontraron candidatos para la carrera buscada.")
 
 
 def ejecutar_mejor_puntaje_saber11(c1: dict, c2: dict, c3: dict, c4: dict) -> None:
@@ -90,7 +96,9 @@ def ejecutar_mejor_puntaje_saber11(c1: dict, c2: dict, c3: dict, c4: dict) -> No
         Luego se muestran todos los datos del candidato usando la función auxiliar: `mostrar_candidato()`.
     """
     # TODO 10: Implemente la función tal y como se describe en la documentación.
-    pass
+    print("Candidato con mejor puntaje Saber 11°:")
+    candidato = ca.mejor_puntaje_saber11(c1, c2, c3, c4)
+    mostrar_candidato(candidato)
 
 
 def ejecutar_postulacion_mas_reciente(c1: dict, c2: dict, c3: dict, c4: dict) -> None:
@@ -104,7 +112,9 @@ def ejecutar_postulacion_mas_reciente(c1: dict, c2: dict, c3: dict, c4: dict) ->
         Luego se muestran todos los datos del candidato usando la función auxiliar: `mostrar_candidato()`.
     """
     # TODO 11: Implemente la función tal y como se describe en la documentación.
-    pass
+    print("Candidato con la postulación más reciente:")
+    candidato = ca.postulacion_mas_reciente(c1, c2, c3, c4)
+    mostrar_candidato(candidato)
 
 
 def ejecutar_verificar_saber11_apto(c1: dict, c2: dict, c3: dict, c4: dict) -> None:
@@ -122,7 +132,16 @@ def ejecutar_verificar_saber11_apto(c1: dict, c2: dict, c3: dict, c4: dict) -> N
         "Candidato no encontrado."
     """
     # TODO 12: Implemente la función tal y como se describe en la documentación.
-    pass
+    doc = int(input("Ingrese el número de documento de identidad del candidato: "))
+    candidato = ca.buscar_candidato_por_doc_identidad(doc, c1, c2, c3, c4)
+
+    if candidato != {}:
+        if ca.tiene_saber11_apto(candidato):
+            print("El candidato tiene un puntaje Saber 11° apto.")
+        else:
+            print("El candidato NO tiene un puntaje Saber 11° apto.")
+    else:
+        print("Candidato no encontrado.")
 
 
 def ejecutar_recomendar_beca(c1: dict, c2: dict, c3: dict, c4: dict) -> None:
@@ -141,7 +160,15 @@ def ejecutar_recomendar_beca(c1: dict, c2: dict, c3: dict, c4: dict) -> None:
         "Ningún candidato cumple con los requerimientos de la beca."
     """
     # TODO 13: Implemente la función tal y como se describe en la documentación.
-    pass
+    max_ingreso = int(input("Ingrese el ingreso máximo permitido del núcleo familiar: "))
+    candidato = ca.recomendar_para_beca(c1, c2, c3, c4, max_ingreso)
+    puntaje = ca.puntaje_para_beca_gobierno(candidato, max_ingreso)
+
+    if puntaje > 0.0:
+        print("Candidato recomendado para la beca:")
+        mostrar_candidato(candidato)
+    else:
+        print("Ningún candidato cumple con los requerimientos de la beca.")
 
 
 

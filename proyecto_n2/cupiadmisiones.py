@@ -46,7 +46,24 @@ def crear_candidato(
         dict: Diccionario que representa al candidato, con las llaves coincidiendo con los nombres de los parámetros.
     """
     # TODO 1: Implemente la función tal y como se describe en la documentación.
-    pass
+    return {
+        "nombre": nombre,
+        "doc_identidad": doc_identidad,
+        "edad": edad,
+        "genero": genero,
+        "fecha_postulacion": fecha_postulacion,
+        "nacionalidad": nacionalidad,
+        "num_premios_academicos": num_premios_academicos,
+        "puntaje_saber11": puntaje_saber11,
+        "carrera_aplicada": carrera_aplicada,
+        "facultad_aplicada": facultad_aplicada,
+        "tiene_discapacidad": tiene_discapacidad,
+        "es_indigena": es_indigena,
+        "tiene_SISBEN": tiene_SISBEN,
+        "es_victima_conflicto": es_victima_conflicto,
+        "es_becado": es_becado,
+        "ingresos_nucleo_familiar": ingresos_nucleo_familiar,
+    }
 
 
 def buscar_candidato_por_doc_identidad(doc_buscado: int, c1: dict, c2: dict, c3: dict, c4: dict) -> dict:
@@ -64,7 +81,16 @@ def buscar_candidato_por_doc_identidad(doc_buscado: int, c1: dict, c2: dict, c3:
         dict: Diccionario correspondiente al candidato con documento coincidente o diccionario vacío si no hay coincidencia.
     """
     # TODO 2: Implemente la función tal y como se describe en la documentación.
-    pass
+    if c1["doc_identidad"] == doc_buscado:
+        return c1
+    if c2["doc_identidad"] == doc_buscado:
+        return c2
+    if c3["doc_identidad"] == doc_buscado:
+        return c3
+    if c4["doc_identidad"] == doc_buscado:
+        return c4
+
+    return {}
 
 
 def filtrar_por_carrera_aplicada(carrera_buscada: str, c1: dict, c2: dict, c3: dict, c4: dict) -> str:
@@ -83,7 +109,33 @@ def filtrar_por_carrera_aplicada(carrera_buscada: str, c1: dict, c2: dict, c3: d
         str: Cadena con los documentos de identidad de los candidatos filtrados o "Ninguno" si no hay coincidencias.
     """
     # TODO 3: Implemente la función tal y como se describe en la documentación.
-    pass
+    documentos = ""
+
+    if c1["carrera_aplicada"] == carrera_buscada:
+        documentos = str(c1["doc_identidad"])
+
+    if c2["carrera_aplicada"] == carrera_buscada:
+        if documentos == "":
+            documentos = str(c2["doc_identidad"])
+        else:
+            documentos += ", " + str(c2["doc_identidad"])
+
+    if c3["carrera_aplicada"] == carrera_buscada:
+        if documentos == "":
+            documentos = str(c3["doc_identidad"])
+        else:
+            documentos += ", " + str(c3["doc_identidad"])
+
+    if c4["carrera_aplicada"] == carrera_buscada:
+        if documentos == "":
+            documentos = str(c4["doc_identidad"])
+        else:
+            documentos += ", " + str(c4["doc_identidad"])
+
+    if documentos == "":
+        return "Ninguno"
+
+    return documentos
 
 
 def mejor_puntaje_saber11(c1: dict, c2: dict, c3: dict, c4: dict) -> dict:
@@ -101,7 +153,16 @@ def mejor_puntaje_saber11(c1: dict, c2: dict, c3: dict, c4: dict) -> dict:
         En caso de empate, retorna el último candidato que alcanza ese puntaje en el orden c1 a c4.
     """
     # TODO 4: Implemente la función tal y como se describe en la documentación.
-    pass
+    mejor = c1
+
+    if c2["puntaje_saber11"] >= mejor["puntaje_saber11"]:
+        mejor = c2
+    if c3["puntaje_saber11"] >= mejor["puntaje_saber11"]:
+        mejor = c3
+    if c4["puntaje_saber11"] >= mejor["puntaje_saber11"]:
+        mejor = c4
+
+    return mejor
 
 
 def postulacion_mas_reciente(c1: dict, c2: dict, c3: dict, c4: dict) -> dict:
@@ -130,7 +191,16 @@ def postulacion_mas_reciente(c1: dict, c2: dict, c3: dict, c4: dict) -> dict:
         En caso de empate, se retorna el primer candidato que tenga dicha fecha en el orden c1 a c4.
     """
     # TODO 5: Implemente la función tal y como se describe en la documentación.
-    pass
+    mas_reciente = c1
+
+    if c2["fecha_postulacion"] > mas_reciente["fecha_postulacion"]:
+        mas_reciente = c2
+    if c3["fecha_postulacion"] > mas_reciente["fecha_postulacion"]:
+        mas_reciente = c3
+    if c4["fecha_postulacion"] > mas_reciente["fecha_postulacion"]:
+        mas_reciente = c4
+
+    return mas_reciente
 
 
 def tiene_saber11_apto(candidato: dict) -> bool:
@@ -153,7 +223,22 @@ def tiene_saber11_apto(candidato: dict) -> bool:
         bool: True si el puntaje Saber 11° es suficiente para la facultad correspondiente, False en caso contrario.
     """
     # TODO 6: Implemente la función tal y como se describe en la documentación.
-    pass
+    puntajes_minimos = {
+        "Artes y Humanidades": 345,
+        "Ciencias Sociales": 345,
+        "Derecho": 350,
+        "Economía": 350,
+        "Administración": 355,
+        "Ciencias": 360,
+        "Ingeniería": 370,
+        "Medicina": 375,
+    }
+
+    facultad = candidato["facultad_aplicada"]
+    if facultad not in puntajes_minimos:
+        return False
+
+    return candidato["puntaje_saber11"] >= puntajes_minimos[facultad]
 
 
 def puntaje_para_beca_gobierno(candidato: dict, max_ingreso_nucleo_familiar: float) -> float:
@@ -179,7 +264,22 @@ def puntaje_para_beca_gobierno(candidato: dict, max_ingreso_nucleo_familiar: flo
         float: Puntaje entre 0.0 y 1.0 de elegibilidad para beca del gobierno colombiano, redondeado a 2 decimales.
     """
     # TODO 7: Implemente la función tal y como se describe en la documentación.
-    pass
+    if not tiene_saber11_apto(candidato) or candidato["es_becado"]:
+        return 0.0
+
+    puntaje = 0.0
+    if candidato["nacionalidad"] == "Colombiana":
+        puntaje += 0.2
+    if candidato["num_premios_academicos"] > 0:
+        puntaje += 0.2
+    if candidato["tiene_SISBEN"]:
+        puntaje += 0.2
+    if candidato["es_victima_conflicto"]:
+        puntaje += 0.2
+    if candidato["ingresos_nucleo_familiar"] <= max_ingreso_nucleo_familiar:
+        puntaje += 0.2
+
+    return round(puntaje, 2)
 
 
 def recomendar_para_beca(c1: dict, c2: dict, c3: dict, c4: dict, max_ingreso_nucleo_familiar: float) -> dict:
@@ -200,5 +300,46 @@ def recomendar_para_beca(c1: dict, c2: dict, c3: dict, c4: dict, max_ingreso_nuc
                    Si aún persiste, se retorna el primero en el orden c1 a c4.
     """
     # TODO 8: Implemente la función tal y como se describe en la documentación.
-    pass
+    mejor_candidato = c1
+    mejor_puntaje = puntaje_para_beca_gobierno(c1, max_ingreso_nucleo_familiar)
+    puntaje_c2 = puntaje_para_beca_gobierno(c2, max_ingreso_nucleo_familiar)
+    if puntaje_c2 > mejor_puntaje:
+        mejor_candidato = c2
+        mejor_puntaje = puntaje_c2
+    elif puntaje_c2 == mejor_puntaje:
+        if c2["puntaje_saber11"] > mejor_candidato["puntaje_saber11"]:
+            mejor_candidato = c2
+            mejor_puntaje = puntaje_c2
+        elif c2["puntaje_saber11"] == mejor_candidato["puntaje_saber11"]:
+            if c2["num_premios_academicos"] > mejor_candidato["num_premios_academicos"]:
+                mejor_candidato = c2
+                mejor_puntaje = puntaje_c2
+
+    puntaje_c3 = puntaje_para_beca_gobierno(c3, max_ingreso_nucleo_familiar)
+    if puntaje_c3 > mejor_puntaje:
+        mejor_candidato = c3
+        mejor_puntaje = puntaje_c3
+    elif puntaje_c3 == mejor_puntaje:
+        if c3["puntaje_saber11"] > mejor_candidato["puntaje_saber11"]:
+            mejor_candidato = c3
+            mejor_puntaje = puntaje_c3
+        elif c3["puntaje_saber11"] == mejor_candidato["puntaje_saber11"]:
+            if c3["num_premios_academicos"] > mejor_candidato["num_premios_academicos"]:
+                mejor_candidato = c3
+                mejor_puntaje = puntaje_c3
+
+    puntaje_c4 = puntaje_para_beca_gobierno(c4, max_ingreso_nucleo_familiar)
+    if puntaje_c4 > mejor_puntaje:
+        mejor_candidato = c4
+        mejor_puntaje = puntaje_c4
+    elif puntaje_c4 == mejor_puntaje:
+        if c4["puntaje_saber11"] > mejor_candidato["puntaje_saber11"]:
+            mejor_candidato = c4
+            mejor_puntaje = puntaje_c4
+        elif c4["puntaje_saber11"] == mejor_candidato["puntaje_saber11"]:
+            if c4["num_premios_academicos"] > mejor_candidato["num_premios_academicos"]:
+                mejor_candidato = c4
+                mejor_puntaje = puntaje_c4
+
+    return mejor_candidato
 
